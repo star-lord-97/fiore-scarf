@@ -476,6 +476,7 @@ export default {
                 .patch(context.state.baseAPIURL + "/products/" + payload.code, {
                     attribute: payload.attribute,
                     price: payload.price ? payload.price : null,
+                    units: payload.units ? payload.units : null,
                 })
                 .then((response) => {
                     resolve(response);

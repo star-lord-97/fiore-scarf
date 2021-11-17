@@ -27,7 +27,7 @@
                     <th class="border border-green-100 py-1">Name</th>
                     <th class="border border-green-100 py-1">Price</th>
                     <th class="border border-green-100 py-1">Category</th>
-                    <th class="border border-green-100 py-1">Sizes</th>
+                    <th class="border border-green-100 py-1">Stock</th>
                     <th class="border border-green-100 py-1">Sale?</th>
                     <th class="border border-green-100 py-1">Remove</th>
                     <th
@@ -83,17 +83,26 @@
                             >Out of stock</span
                         >
                         <div v-else class="space-y-1">
-                            <span
+                            <input
                                 v-for="size in product.sizes"
                                 :key="size.id"
-                                class="text-xs block"
-                                >{{
-                                    size["size"] +
-                                    " => " +
-                                    size["units"] +
-                                    " units"
-                                }}</span
-                            >
+                                type="text"
+                                name="price"
+                                class="
+                                    focus:outline-none
+                                    border
+                                    focus:border-blue-300
+                                    w-32
+                                "
+                                :placeholder="size['units']"
+                                @input="
+                                    state.productCodeToUpdate = product.code;
+                                    state.unitsToBeUpdated =
+                                        $event.target.value;
+                                    state.showUpdateButton = true;
+                                "
+                            />
+                            <span> Pieces</span>
                         </div>
                     </td>
                     <td class="border border-green-100 px-4 py-2">
@@ -159,7 +168,11 @@
                             viewBox="0 0 24 24"
                             class="h-6 w-6"
                             v-show="product.code == state.productCodeToUpdate"
-                            @click="updatePrice"
+                            @click="
+                                state.priceToBeUpdated !== null
+                                    ? updatePrice()
+                                    : updateUnits()
+                            "
                         >
                             <path d="M0 0h24v24H0V0z" fill="none" />
                             <path
@@ -210,6 +223,7 @@ export default {
             productCodeToUpdate: "",
             priceToBeUpdated: null,
             showUpdateButton: false,
+            unitsToBeUpdated: null,
         });
 
         onMounted(() => {
@@ -268,6 +282,23 @@ export default {
                 });
         };
 
+        let updateUnits = () => {
+            store.commit("toggleLoading", true);
+            store
+                .dispatch("adminUpdateProduct", {
+                    code: state.productCodeToUpdate,
+                    attribute: "units",
+                    units: state.unitsToBeUpdated,
+                })
+                .then((response) => {
+                    state.products = response.data;
+                    state.productCodeToUpdate = "";
+                    state.unitsToBeUpdated = null;
+                    state.showUpdateButton = false;
+                    store.commit("toggleLoading", false);
+                });
+        };
+
         let toggleSale = (productCode) => {
             store.commit("toggleLoading", true);
             store
@@ -281,7 +312,14 @@ export default {
                 });
         };
 
-        return { state, addProduct, removeProduct, updatePrice, toggleSale };
+        return {
+            state,
+            addProduct,
+            removeProduct,
+            updatePrice,
+            toggleSale,
+            updateUnits,
+        };
     },
 };
 </script>

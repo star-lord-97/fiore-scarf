@@ -24,7 +24,7 @@ class LoginController extends Controller
             ]);
         };
 
-        return $user->createToken('fiore')->accessToken;
+        return $user->createToken('fiore-scarf')->accessToken;
     }
 
     public function logout(Request $request)

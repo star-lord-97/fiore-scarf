@@ -112,12 +112,20 @@
                     ></textarea>
                 </div>
                 <!-- v-show="!state.showAddCategoryField" -->
-                <!-- <div class="flex items-center space-x-4 w-4/5">
+                <div class="flex items-center space-x-4 w-4/5">
                     <label for="category">Category: </label>
                     <select
                         name="category"
                         id="category"
-                        class="focus:outline-none border border-black focus:border-blue-400 rounded-lg py-0.5 px-2 w-full"
+                        class="
+                            focus:outline-none
+                            border border-black
+                            focus:border-blue-400
+                            rounded-lg
+                            py-0.5
+                            px-2
+                            w-full
+                        "
                         :class="
                             errors.category && state.category.length <= 0
                                 ? 'border-red-500'
@@ -125,22 +133,18 @@
                         "
                         v-model="state.category"
                     >
-                        <option value="Blouses">Blouses</option>
-                        <option value="Pants">Pants</option>
-                        <option value="Blazers">Blazers</option>
-                        <option value="Summer Dresses">Summer Dresses</option>
-                        <option value="Basic Shirts">Basic Shirts</option>
-                        <option value="Summer Skirts">Summer Skirts</option>
-                        <option value="Waisted Jackets">Waisted Jackets</option>
-                        <option value="Cardigans">Cardigans</option>
-                    </select> -->
-                <!-- <button
+                        <option value="Chiffon">Chiffon</option>
+                        <option value="Satin">Satin</option>
+                        <option value="Square Satin">Square Satin</option>
+                        <option value="Linen">Linen</option>
+                    </select>
+                    <!-- <button
                         class="whitespace-nowrap bg-green-300 px-2 py-1 rounded-lg focus:outline-none"
                         @click="state.showAddCategoryField = true"
                     >
                         Add new
                     </button> -->
-                <!-- </div> -->
+                </div>
                 <!-- <div
                     class="flex items-center space-x-4 w-4/5"
                     v-show="state.showAddCategoryField"
@@ -374,7 +378,7 @@ export default {
             code: "",
             name: "",
             details: "",
-            // category: "",
+            category: "",
             sale: 0,
             price: "",
             sizes: [{ size: "medium", units: null }],
@@ -395,7 +399,7 @@ export default {
             state.formData.append("name", state.name);
             state.formData.append("code", state.code);
             state.formData.append("details", state.details);
-            // state.formData.append("category", state.category);
+            state.formData.append("category", state.category);
             state.formData.append("sale", state.sale);
             state.formData.append("price", state.price);
             for (let i = 0; i < state.sizes.length; i++) {

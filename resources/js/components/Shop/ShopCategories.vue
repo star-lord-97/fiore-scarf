@@ -11,14 +11,14 @@
                 v-show="showOnSaleCategory"
                 >On Sale</router-link
             >
-            <!-- <router-link
+            <router-link
                 class="hover:text-gray-400"
                 v-for="category in categories"
                 :key="category.id"
                 :to="'/shop/' + category"
             >
                 {{ category }}
-            </router-link> -->
+            </router-link>
         </div>
     </div>
 </template>

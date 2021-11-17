@@ -1,6 +1,6 @@
 export default {
-    baseAPIURL: "http://localhost:8000/api",
-    // baseAPIURL: "http://fiore-scarf.com/api",
+    // baseAPIURL: "http://localhost:8000/api",
+    baseAPIURL: "http://fiore-scarf.com/api",
     heroExt: localStorage.getItem("heroExt") || "qt",
     token: localStorage.getItem("token") || null,
     admin: localStorage.getItem("admin") || false,

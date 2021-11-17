@@ -30,6 +30,7 @@ class ShopController extends Controller
             'details' => 'required|string',
             'price' => 'required|numeric',
             'sale' => 'required',
+            'category' => 'required',
             // 'sizes' => 'required',
             'images' => 'required',
             'images.*' => 'image'
@@ -39,7 +40,7 @@ class ShopController extends Controller
 
         $createdProduct = Product::create(Arr::only(
             $validatedAttributes,
-            ['name', 'code', 'details', 'sale', 'price']
+            ['name', 'code', 'details', 'sale', 'price', 'category']
         ));
 
         foreach ($request->sizes as $index => $size) {
@@ -62,7 +63,7 @@ class ShopController extends Controller
         }
 
         // return Product::select('id', 'code', 'name', 'details', 'price', 'sale')->with('images', 'sizes')->latest()->get();
-        return Product::select('id', 'code', 'name', 'details', 'price', 'sale')->with('images')->latest()->get();
+        return Product::select('id', 'code', 'name', 'category', 'details', 'price', 'sale')->with('images')->latest()->get();
     }
 
     /**
@@ -83,6 +84,14 @@ class ShopController extends Controller
         if ($request->attribute === 'sale') {
             $product->update([
                 'sale' => !$product['sale']
+            ]);
+        }
+
+        if ($request->attribute === 'units') {
+            $productSize = ProductSize::where('product_id', $product->id)->first();
+
+            $productSize->update([
+                'units' => $request['units']
             ]);
         }
 
