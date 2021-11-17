@@ -131,7 +131,7 @@
                                 }}</span
                             >
                         </div>
-                        <div
+                        <!-- <div
                             v-if="quantity >= 2"
                             class="
                                 flex
@@ -148,7 +148,7 @@
                                     Number(cartProducts[0].price).toFixed(2)
                                 }}</span
                             >
-                        </div>
+                        </div> -->
                         <div
                             class="
                                 flex
@@ -291,9 +291,10 @@ export default {
         });
 
         const totalWithShipping = computed(() => {
-            if (quantity.value >= 2)
-                return state.total + 45 - cartProducts.value[0].price;
-            else return state.total + 45;
+            // if (quantity.value >= 2)
+            //     return state.total + 45 - cartProducts.value[0].price;
+            // else
+            return state.total + 45;
         });
 
         let applyPromoCode = () => {
