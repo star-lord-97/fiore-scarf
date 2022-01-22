@@ -6,16 +6,10 @@
                     :categories="state.categories"
                     :showOnSaleCategory="state.showOnSaleCategory"
                 ></ShopCategories>
-                <div class="flex flex-col space-y-8">
+                <div class="flex flex-col space-y-8 w-full">
                     <div class="flex justify-between items-center">
                         <span
-                            class="
-                                font-bold
-                                text-sm
-                                md:text-3xl
-                                border-b-2 border-t-2 border-black
-                                py-2
-                            "
+                            class="font-bold text-sm md:text-3xl border-b-2 border-t-2 border-black py-2"
                             >{{
                                 $route.params.category
                                     ? $route.params.category
@@ -28,7 +22,7 @@
                     </div>
                     <div
                         class="container mx-auto"
-                        v-show="state.products.length > 0"
+                        v-if="state.products.length > 0"
                     >
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div
@@ -43,6 +37,7 @@
                             @paginatedProducts="handlePaginatedProducts"
                         ></ShopPagination>
                     </div>
+                    <div v-else class="w-full">No products to show</div>
                 </div>
             </div>
         </div>
